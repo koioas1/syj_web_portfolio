@@ -3940,6 +3940,17 @@ function injectImages() {
 }
 
 // ============================================================
+// PDF 다운로드 링크 일괄 주입
+// data-pdf-href: MEDIA_BASE.pdf 기준 파일명 → href (다운로드 버튼 등)
+// ============================================================
+function injectPdfLinks() {
+  document.querySelectorAll('[data-pdf-href]').forEach(function(el) {
+    const filename = el.getAttribute('data-pdf-href');
+    el.href = MEDIA_BASE.pdf + encodeURI(filename);
+  });
+}
+
+// ============================================================
 // 페이지 전환 로직 — 활성 페이지만 표시, 스위처 활성 상태 동기화
 // URL 해시(#donutcrash 등)와 동기화하여 뒤로가기/북마크 지원
 // ============================================================
@@ -4662,6 +4673,7 @@ function initIntro() {
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
   injectImages();
+  injectPdfLinks();
   bindPageLinks();
   bindHashRouter();
   initModal();
